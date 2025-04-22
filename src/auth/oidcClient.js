@@ -3,8 +3,9 @@ import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 // OpenID Connect configuration
 const oidcConfig = {
   authority: 'http://localhost:3001',
-  client_id: '0d5e75e457d589393d065f90d2800bee',
+  client_id: 'deb07d93187c742a3120fd8a02e3f956',
   redirect_uri: 'http://localhost:5173/callback',
+  organizationName: 'butalia media',
   response_type: 'code',
   scope: 'openid email profile',
   post_logout_redirect_uri: 'http://localhost:5173/callback',
@@ -15,7 +16,7 @@ const oidcConfig = {
   grant_type: 'authorization_code',
   // Add token endpoint auth method
   token_endpoint_auth_method: 'none',
-  client_secret: '34d5ced59ac4881b51474884d5373b4473e08636ba36c7d514250a22125c7856',
+  client_secret: '7db97bdcd62716913a8963cc645eb084ade55d308edf6b535d6c10a5025bc4a6',
   // Add additional metadata
   metadata: {
     authorization_endpoint: 'http://localhost:3001/auth',
@@ -50,7 +51,11 @@ export async function initializeClient() {
  */
 export async function login() {
   try {
-    await userManager.signinRedirect();
+    await userManager.signinRedirect({
+      extraQueryParams: {
+        organizationName: oidcConfig.organizationName
+      }
+    });
   } catch (error) {
     console.error('Login error:', error);
     throw error;
@@ -66,7 +71,7 @@ export async function handleCallback() {
     const user = await userManager.signinRedirectCallback();
     return user;
   } catch (error) {
-    console.error('Callback error:', error);
+    console.error('Callback error: oidcClient.js', error);
     throw error;
   }
 }

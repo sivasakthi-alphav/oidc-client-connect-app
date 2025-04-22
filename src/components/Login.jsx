@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 
 function Login() {
-  const { login, user, isAuthenticated, loading } = useAuth();
+  const { login, user, isAuthenticated, loading, error } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +20,7 @@ function Login() {
           <p className="text-lg text-gray-600">Please sign in to continue</p>
         </div>
         <div className="mt-8">
+          {error && <p style={{color: 'red'}} className="text-red-500">{error}</p>}
           <button 
             onClick={login} 
             disabled={loading}
