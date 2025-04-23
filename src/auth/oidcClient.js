@@ -3,7 +3,7 @@ import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 // OpenID Connect configuration
 const oidcConfig = {
   authority: 'http://localhost:3001',
-  client_id: 'deb07d93187c742a3120fd8a02e3f956',
+  client_id: 'ae1a7c01dc17d2f6cd085c6537b2d464',
   redirect_uri: 'http://localhost:5173/callback',
   organizationName: 'butalia media',
   response_type: 'code',
@@ -16,7 +16,7 @@ const oidcConfig = {
   grant_type: 'authorization_code',
   // Add token endpoint auth method
   token_endpoint_auth_method: 'none',
-  client_secret: '7db97bdcd62716913a8963cc645eb084ade55d308edf6b535d6c10a5025bc4a6',
+  client_secret: 'debaf1bbda7f26f7bbab708a05105bc70be698ec844eb111c0b0276299ed9267',
   // Add additional metadata
   metadata: {
     authorization_endpoint: 'http://localhost:3001/auth',
@@ -24,6 +24,10 @@ const oidcConfig = {
     userinfo_endpoint: 'http://localhost:3001/userinfo',
     end_session_endpoint: 'http://localhost:3001/logout',
     jwks_uri: 'http://localhost:3001/.well-known/jwks.json'
+  },
+  // Include extra parameters in token requests
+  extraTokenParams: { 
+    organizationName: 'butalia media' // mandatory
   }
 };
 
