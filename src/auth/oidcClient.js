@@ -5,7 +5,7 @@ const oidcConfig = {
   authority: 'http://localhost:3001',
   client_id: 'ae1a7c01dc17d2f6cd085c6537b2d464',
   redirect_uri: 'http://localhost:5173/callback',
-  organizationName: 'butalia media',
+  organizationId: '6808aca645594d78bff25212', // mandatory
   response_type: 'code',
   scope: 'openid email profile',
   post_logout_redirect_uri: 'http://localhost:5173/callback',
@@ -26,8 +26,8 @@ const oidcConfig = {
     jwks_uri: 'http://localhost:3001/.well-known/jwks.json'
   },
   // Include extra parameters in token requests
-  extraTokenParams: { 
-    organizationName: 'butalia media' // mandatory
+  extraTokenParams: {
+    organizationId: '6808aca645594d78bff25212' // mandatory
   }
 };
 
@@ -57,7 +57,7 @@ export async function login() {
   try {
     await userManager.signinRedirect({
       extraQueryParams: {
-        organizationName: oidcConfig.organizationName
+        organizationId: oidcConfig.organizationId
       }
     });
   } catch (error) {
