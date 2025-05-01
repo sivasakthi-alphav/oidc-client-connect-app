@@ -3,9 +3,8 @@ import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 // OpenID Connect configuration
 const oidcConfig = {
   authority: 'http://localhost:3001',
-  client_id: 'ae1a7c01dc17d2f6cd085c6537b2d464',
+  client_id: '3b2ffbbf4c36538c67b9c1c8b10abc4d',
   redirect_uri: 'http://localhost:5173/callback',
-  organizationId: '6808aca645594d78bff25212', // mandatory
   response_type: 'code',
   scope: 'openid email profile',
   post_logout_redirect_uri: 'http://localhost:5173/callback',
@@ -16,7 +15,7 @@ const oidcConfig = {
   grant_type: 'authorization_code',
   // Add token endpoint auth method
   token_endpoint_auth_method: 'none',
-  client_secret: 'debaf1bbda7f26f7bbab708a05105bc70be698ec844eb111c0b0276299ed9267',
+  client_secret: 'ce50e9d9c2a9d1afcf351e529080f049e534cf9ac12937512e9aaed0a2470b3c',
   // Add additional metadata
   metadata: {
     authorization_endpoint: 'http://localhost:3001/auth',
@@ -25,10 +24,6 @@ const oidcConfig = {
     end_session_endpoint: 'http://localhost:3001/logout',
     jwks_uri: 'http://localhost:3001/.well-known/jwks.json'
   },
-  // Include extra parameters in token requests
-  extraTokenParams: {
-    organizationId: '6808aca645594d78bff25212' // mandatory
-  }
 };
 
 // Initialize the UserManager
@@ -55,11 +50,7 @@ export async function initializeClient() {
  */
 export async function login() {
   try {
-    await userManager.signinRedirect({
-      extraQueryParams: {
-        organizationId: oidcConfig.organizationId
-      }
-    });
+    await userManager.signinRedirect();
   } catch (error) {
     console.error('Login error:', error);
     throw error;
