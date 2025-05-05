@@ -1,9 +1,12 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 
+// Base URL for the OIDC provider
+const AUTHORITY_BASE_URL = 'https://shield-api-dev.butaliamedia.com';
+
 // OpenID Connect configuration
 const oidcConfig = {
-  authority: 'http://localhost:3001',
-  client_id: '3b2ffbbf4c36538c67b9c1c8b10abc4d',
+  authority: AUTHORITY_BASE_URL,
+  client_id: '5dae3ebd2bf8507cb5b56542c10e18bc',
   redirect_uri: 'http://localhost:5173/callback',
   response_type: 'code',
   scope: 'openid email profile',
@@ -15,14 +18,14 @@ const oidcConfig = {
   grant_type: 'authorization_code',
   // Add token endpoint auth method
   token_endpoint_auth_method: 'none',
-  client_secret: 'ce50e9d9c2a9d1afcf351e529080f049e534cf9ac12937512e9aaed0a2470b3c',
+  client_secret: 'fc8956cd4476f0a48e56811f59eba67c962c286808dc1e5ddc14f7cbd8b5ed8d',
   // Add additional metadata
   metadata: {
-    authorization_endpoint: 'http://localhost:3001/auth',
-    token_endpoint: 'http://localhost:3001/token',
-    userinfo_endpoint: 'http://localhost:3001/userinfo',
-    end_session_endpoint: 'http://localhost:3001/logout',
-    jwks_uri: 'http://localhost:3001/.well-known/jwks.json'
+    authorization_endpoint: `${AUTHORITY_BASE_URL}/auth`,
+    token_endpoint: `${AUTHORITY_BASE_URL}/token`,
+    userinfo_endpoint: `${AUTHORITY_BASE_URL}/userinfo`,
+    end_session_endpoint: `${AUTHORITY_BASE_URL}/logout`,
+    jwks_uri: `${AUTHORITY_BASE_URL}/.well-known/jwks.json`
   },
 };
 
@@ -50,6 +53,7 @@ export async function initializeClient() {
  */
 export async function login() {
   try {
+    console.log('Login initiated hit');
     await userManager.signinRedirect();
   } catch (error) {
     console.error('Login error:', error);

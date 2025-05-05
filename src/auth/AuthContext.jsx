@@ -47,8 +47,8 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const user = await oidcClient.handleCallback();
-      console.log(user);
-      initClient();
+      setIsAuthenticated(true);
+      setUser(user);
     } catch (err) {
       console.error('Callback error:', err);
       setError(err.message);
